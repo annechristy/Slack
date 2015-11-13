@@ -1,0 +1,88 @@
+{"ok":true,"members":
+    [
+        {
+            "id":"U051EEBLW",
+            "team_id":"T051E538Q",
+            "name":"amy",
+            "deleted":false,
+            "status":null,
+            "color":"684b6c",
+            "real_name":"Amy Adams",
+            "tz":"America\/Los_Angeles",
+            "tz_label":"Pacific Standard Time",
+            "tz_offset":-28800,
+            "profile":
+            {
+                "first_name":"Amy",
+                "last_name":"Adams",
+                "image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_24.jpg",
+                "image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_32.jpg",
+                "image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_48.jpg",
+                "image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_72.jpg",
+                "image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_192.jpg",
+                "image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048495520_dfdf968b935547134126_original.jpg",
+                "title":"Marketing",
+                "skype":"",
+                "phone":"415-5559463",
+                "fields":
+                {
+                    "Xf0DAR3VBM":
+                    {
+                        "value":"",
+                        "alt":""
+                    }
+                },
+                "real_name":"Amy Adams",
+                "real_name_normalized":"Amy Adams",
+                "email":"steve+ae1_7@slack-corp.com"
+            },
+            "is_admin":false,
+            "is_owner":false,
+            "is_primary_owner":false,
+            "is_restricted":false,
+            "is_ultra_restricted":false,
+            "is_bot":false
+        },
+        {
+            "id":"U051EA68Y",
+            "team_id":"T051E538Q",
+            "name":"brad",
+            "deleted":false,
+            "status":null,
+            "color":"4bbe2e",
+            "real_name":"Brad Lindley",
+            "tz":"America\/New_York",
+            "tz_label":"Eastern Standard Time",
+            "tz_offset":-18000,
+            "profile":
+            {
+                "first_name":"Brad",
+                "last_name":"Lindley",
+                "title":"Design",
+                "skype":"",
+                "phone":"4155552424",
+                "image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_24.jpg",
+                "image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_32.jpg",
+                "image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_48.jpg",
+                "image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_72.jpg",
+                "image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_192.jpg",
+                "image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070070247_bbc4645d447a07439d78_original.jpg",
+                "fields":
+                {
+                    "Xf0DAR3VBM":
+                    {
+                        "value":"",
+                        "alt":""
+                    }
+                },
+                "real_name":"Brad Lindley",
+                "real_name_normalized":"Brad Lindley",
+                "email":"steve+ae1_1@slack-corp.com"
+            },
+            "is_admin":false,
+            "is_owner":false,
+            "is_primary_owner":false,
+            "is_restricted":false,
+            "is_ultra_restricted":false,
+            "is_bot":false,"has_2fa":false
+        },{"id":"U05224CN5","team_id":"T051E538Q","name":"jane","deleted":false,"status":null,"color":"e0a729","real_name":"Jane Anderson","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Jane","last_name":"Anderson","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048467002_ea9e8ca6820b76649868_original.jpg","title":"Server Engineer","skype":"","phone":"415-555-9010","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Jane Anderson","real_name_normalized":"Jane Anderson","email":"steve+ae1_4@slack-corp.com"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false},{"id":"U051E538Y","team_id":"T051E538Q","name":"jen","deleted":false,"status":null,"color":"9f69e7","real_name":"Jen Harvey","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Jen","last_name":"Harvey","title":"Android Engineer","skype":"","phone":"415-555-5141","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5069957921_c7340748a8832ada61d9_original.jpg","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Jen Harvey","real_name_normalized":"Jen Harvey","email":"steve+ae1@slack-corp.com"},"is_admin":true,"is_owner":true,"is_primary_owner":true,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false},{"id":"U05222YTR","team_id":"T051E538Q","name":"michael","deleted":false,"status":null,"color":"3c989f","real_name":"Michael Flott","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Michael","last_name":"Flott","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070109969_468adb8cbaf298e4bf88_original.jpg","title":"iOS Engineer","skype":"","phone":"4155559123","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Michael Flott","real_name_normalized":"Michael Flott","email":"steve+ae1_3@slack-corp.com"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false},{"id":"U051ED61U","team_id":"T051E538Q","name":"sean","deleted":false,"status":null,"color":"e96699","real_name":"Sean Murray","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Sean","last_name":"Murray","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048453870_1ec8fa4aa90a4ea625a6_original.jpg","title":"Customer Experience","skype":"","phone":"415-555-7613","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Sean Murray","real_name_normalized":"Sean Murray","email":"steve+ae1_5@slack-corp.com"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false},{"id":"U051EBKBC","team_id":"T051E538Q","name":"shelley","deleted":false,"status":null,"color":"e7392d","real_name":"Shelley Abbot","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Shelley","last_name":"Abbot","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5048397530_52893337f9e1ade5d3fb_original.jpg","title":"CEO","skype":"","phone":"415-555-1245","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Shelley Abbot","real_name_normalized":"Shelley Abbot","email":"steve+ae1_2@slack-corp.com"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false},{"id":"U051ECPFQ","team_id":"T051E538Q","name":"stew","deleted":false,"status":null,"color":"674b1b","real_name":"Stew Smith","tz":"America\/Los_Angeles","tz_label":"Pacific Standard Time","tz_offset":-28800,"profile":{"first_name":"Stew","last_name":"Smith","image_24":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_24.jpg","image_32":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_32.jpg","image_48":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_48.jpg","image_72":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_72.jpg","image_192":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_192.jpg","image_original":"https:\/\/avatars.slack-edge.com\/2015-05-25\/5070120181_406902da971ef71b7210_original.jpg","title":"Head of Design","skype":"","phone":"415-555-4312","fields":{"Xf0DAR3VBM":{"value":"","alt":""}},"real_name":"Stew Smith","real_name_normalized":"Stew Smith","email":"steve+ae1_6@slack-corp.com"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false}]}
