@@ -7,6 +7,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp" >
 
+
     <!-- Name Label -->
 
     <TextView
@@ -15,17 +16,17 @@
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
-        android:textColor="#43bd00"
-        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <!-- Email label -->
-    <TextView
+    <!--<TextView
         android:id="@+id/email"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
-        android:textColor="#acacac" />
+        android:textColor="#acacac" /> -->
 
     <!-- Mobile number label -->
     <TextView

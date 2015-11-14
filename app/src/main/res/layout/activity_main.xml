@@ -17,18 +17,21 @@
 
     <include layout="@layout/content_main" />
 
-   <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+    </android.support.design.widget.CoordinatorLayout>-->
 
-</android.support.design.widget.CoordinatorLayout> -->
+
+
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/myText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <!--<TextView
@@ -39,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
+
+
 
         <ListView
             android:id="@android:id/list"
@@ -52,9 +57,15 @@
             android:indeterminate="true"
             android:layout_centerHorizontal="true"
             android:visibility="gone" />
+
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/progressBar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="53dp">
             <!--<TextView
                 android:id="@+id/responseView"
                 android:layout_width="wrap_content"
@@ -62,3 +73,5 @@
         </ScrollView>
     </RelativeLayout>
 </LinearLayout>
+
+

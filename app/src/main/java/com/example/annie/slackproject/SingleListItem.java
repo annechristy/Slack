@@ -11,13 +11,15 @@ public class SingleListItem extends Activity{
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.single_list_item);
 
-        TextView txtProduct = (TextView) findViewById(R.id.product_label);
+        System.out.println("SINGLE LIST ITEM CLASS ACCESSED");
+
+        TextView txtProfile = (TextView) findViewById(R.id.profile);
 
         Intent i = getIntent();
         // getting attached intent data
-        String product = i.getStringExtra("product");
+        String testString = i.getStringExtra("profile");
         // displaying selected product name
-        txtProduct.setText(product);
+        txtProfile.setText(testString);
 
     }
 }

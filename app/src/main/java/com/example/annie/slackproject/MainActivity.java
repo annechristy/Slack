@@ -2,7 +2,10 @@ package com.example.annie.slackproject;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,6 +39,14 @@ import java.util.HashMap;
 public class MainActivity extends ListActivity {
 
     private ProgressDialog pDialog;
+
+  /*   String FILENAME = "hello_file";
+    String string = "hello world!";
+
+    FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+    fos.write(string.getBytes());
+    fos.close();
+    */
 
     // URL to get contacts JSON
     //private static String url = "http://api.androidhive.info/contacts/";
@@ -71,10 +84,26 @@ public class MainActivity extends ListActivity {
         //setSupportActionBar(toolbar);
 
         memberList = new ArrayList<HashMap<String, String>>();
+        TextView textView = (TextView) findViewById(R.id.myText);
 
         ListView lv = getListView();
 
-        new GetAPIInfo().execute();
+
+        // Check whether there is a network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // fetch data
+            new GetAPIInfo().execute();
+        } else {
+            // display error
+            textView.setText("No network connection.");
+            // Access saved data from last time.
+        }
+
+
+        //new GetAPIInfo().execute();
 
         // listening to single list item on click
        /* lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,12 +126,13 @@ public class MainActivity extends ListActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
-                String product = ((TextView) view).getText().toString();
+                //String product = ((TextView) view).getText().toString();
+                String myTestStr = "hi there!";
 
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), SingleListItem.class);
                 // sending data to new activity
-                i.putExtra("product", product);
+                i.putExtra("profile", myTestStr);
                 startActivity(i);
             }
         });
@@ -234,12 +264,15 @@ public class MainActivity extends ListActivity {
                 return;
             }
 
+            System.out.println("TAG_PICTURE: " + TAG_PICTURE);
+
             // Put parsed JSON into the ListView
             ListAdapter adapter = new SimpleAdapter(
                     MainActivity.this, memberList,
-                    R.layout.list_item, new String[] { TAG_REAL_NAME, TAG_USERNAME,
+                    /*R.layout.list_item, new String[] { TAG_REAL_NAME, TAG_USERNAME,
                                     TAG_TITLE, TAG_PICTURE}, new int[] { R.id.name,
-                                    R.id.email, R.id.mobile});
+                                    R.id.email, R.id.mobile});*/
+                    R.layout.list_item, new String[] {TAG_REAL_NAME}, new int[] { R.id.name });
 
             setListAdapter(adapter);
 
