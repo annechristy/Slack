@@ -5,11 +5,35 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView android:id="@+id/profile"
+
+    <ImageView android:id="@+id/image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" />
+
+    <TextView android:id="@+id/username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dip"
         android:textStyle="bold"
         android:padding="10dip"
         android:textColor="#099e51"/>
+
+    <TextView android:id="@+id/realname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#099e51"/>
+
+    <TextView android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#099e51"/>
+
+
 </LinearLayout>

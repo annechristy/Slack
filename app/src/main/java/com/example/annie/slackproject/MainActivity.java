@@ -4,6 +4,8 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -56,7 +60,7 @@ public class MainActivity extends ListActivity {
     private static final String TAG_USERNAME = "name";
     private static final String TAG_REAL_NAME = "real_name";
     private static final String TAG_TITLE = "title";
-    private static final String TAG_PICTURE = "image_24";
+    private static final String TAG_PICTURE = "image_192";
     private static final String TAG_PROFILE = "profile";
 
 
@@ -127,12 +131,19 @@ public class MainActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // selected item
                 //String product = ((TextView) view).getText().toString();
-                String myTestStr = "hi there!";
+
+                HashMap<String, String> selectedMember = memberList.get(position);
+
+                String member_name = selectedMember.get(TAG_USERNAME);
+
 
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), SingleListItem.class);
                 // sending data to new activity
-                i.putExtra("profile", myTestStr);
+
+                //i.putExtra("member_name", member_name);
+                i.putExtra("profile", selectedMember);
+
                 startActivity(i);
             }
         });
@@ -241,17 +252,8 @@ public class MainActivity extends ListActivity {
                     member.put(TAG_TITLE, title);
                     member.put(TAG_PICTURE, picture);
 
-                    if(memberList == null) {
-                        System.out.println("A: CONTACT LIST IS NULL!!");
-                        return;
-                    }
 
-                    if(member == null) {
-                        System.out.println("CONTACT IS NULL!!");
-                        return;
-                    }
-
-                    // adding contact to contact list
+                    // adding contact to member list
                     memberList.add(member);
                 }
 
@@ -263,6 +265,11 @@ public class MainActivity extends ListActivity {
                 System.out.println("B: CONTACT LIST IS NULL!!");
                 return;
             }
+            else {
+                System.out.println("size of memberlist: " + memberList.size());
+                System.out.println("memberList.get(0): " + memberList.get(0));
+                System.out.println("memberList.get(0).get(\"TAG_USERNAME\")" + memberList.get(0).get("TAG_USERNAME"));
+            }
 
             System.out.println("TAG_PICTURE: " + TAG_PICTURE);
 
@@ -272,7 +279,7 @@ public class MainActivity extends ListActivity {
                     /*R.layout.list_item, new String[] { TAG_REAL_NAME, TAG_USERNAME,
                                     TAG_TITLE, TAG_PICTURE}, new int[] { R.id.name,
                                     R.id.email, R.id.mobile});*/
-                    R.layout.list_item, new String[] {TAG_REAL_NAME}, new int[] { R.id.name });
+                    R.layout.list_item, new String[] {TAG_REAL_NAME, TAG_TITLE}, new int[] { R.id.name, R.id.subTitle });
 
             setListAdapter(adapter);
 
@@ -281,6 +288,9 @@ public class MainActivity extends ListActivity {
 
         }
     }
+
+
+
 
 
 }
