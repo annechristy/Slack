@@ -50,6 +50,10 @@ public class MainActivity extends ListActivity {
 
     String writeString = "no change";
 
+    int numSavedAttributes = 3;
+
+    boolean network = true;
+
    // private ProgressDialog pDialog;
 
   /*   String FILENAME = "hello_file";
@@ -100,11 +104,79 @@ public class MainActivity extends ListActivity {
             // fetch data
             new GetAPIInfo().execute();
         } else {
+            //network = false;
             // display error
             //textView.setText("No network connection.");
             // Access saved data from last time.
 
-            try{
+            int numFiles = fileList().length;
+            int numUsers = numFiles/numSavedAttributes;
+
+            String username = "username not found";
+            String title = "title not found";
+            String real_name = "real name not found";
+
+            for(int i=0; i < numUsers; i++) {
+                try{
+                    // Get the username file.
+                    //FileInputStream fin = openFileInput(fileList()[numSavedAttributes*(i-1)]);
+                    FileInputStream fin_username = openFileInput(i+"_username");
+                    FileInputStream fin_realname = openFileInput(i+"_realname");
+                    FileInputStream fin_title = openFileInput(i+"_title");
+                    try {
+                        BufferedReader bufferedReader_username = new BufferedReader(new InputStreamReader(fin_username));
+                        BufferedReader bufferedReader_realname = new BufferedReader(new InputStreamReader(fin_realname));
+                        BufferedReader bufferedReader_title = new BufferedReader(new InputStreamReader(fin_title));
+
+                        StringBuilder stringBuilder_username = new StringBuilder();
+                        String line_username;
+                        while ((line_username = bufferedReader_username.readLine()) != null) {
+                            stringBuilder_username.append(line_username);//.append("\n");
+                        }
+                        bufferedReader_username.close();
+                        username = stringBuilder_username.toString();
+
+                        StringBuilder stringBuilder_realname = new StringBuilder();
+                        String line_realname;
+                        while ((line_realname = bufferedReader_realname.readLine()) != null) {
+                            stringBuilder_realname.append(line_realname);//.append("\n");
+                        }
+                        bufferedReader_realname.close();
+                        real_name = stringBuilder_realname.toString();
+
+                        StringBuilder stringBuilder_title = new StringBuilder();
+                        String line_title;
+                        while ((line_title = bufferedReader_title.readLine()) != null) {
+                            stringBuilder_title.append(line_title);//.append("\n");
+                        }
+                        bufferedReader_title.close();
+                        title = stringBuilder_title.toString();
+                    } catch (IOException j) {
+                        j.printStackTrace();
+                    }
+
+
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                // Store information about a single member in a HashMap.
+                HashMap<String, String> member = new HashMap<String, String>();
+                // Add member information to the member hashmap.
+                member.put(TAG_USERNAME, username);
+                member.put(TAG_REAL_NAME, real_name);
+                member.put(TAG_TITLE, title);
+                //member.put(TAG_PICTURE, picture);
+
+
+                // Add the member to the member list.
+                memberList.add(member);
+
+            }
+
+            /*try{
                 FileInputStream f_instrm = openFileInput(fileList()[0]);
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(f_instrm));
@@ -121,11 +193,24 @@ public class MainActivity extends ListActivity {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
+            }*/
+
+            // Put parsed JSON into the ListView.
+            ListAdapter adapter = new SimpleAdapter(
+                    MainActivity.this, memberList,
+                    R.layout.list_item, new String[] {TAG_REAL_NAME, TAG_TITLE},
+                    new int[] { R.id.name, R.id.subTitle });
+
+            // Put the name and title into the scrolling listview object.
+            setListAdapter(adapter);
+
+
+
+
         }
 
 
-        try{
+  /*      try{
             FileOutputStream f_outstrm = openFileOutput(filename, Context.MODE_PRIVATE);
             try{
                 f_outstrm.write("test: trying to write to file".getBytes());
@@ -137,10 +222,10 @@ public class MainActivity extends ListActivity {
             e.printStackTrace();
         }
 
-        Log.v("File List", fileList()[0]);
+        Log.v("File List", fileList()[0]);*/
 
 
-        textView.setText(writeString);
+        //textView.setText(writeString);
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -250,19 +335,12 @@ public class MainActivity extends ListActivity {
                     String picture = profile.getString(TAG_PICTURE);
 
 
-                  /*  // Save String information to files.
-                    try{
-                        FileOutputStream f_outstrm = openFileOutput(filename, Context.MODE_PRIVATE);
-                        try{
-                            f_outstrm.write("test: trying to write to file".getBytes());
-                            f_outstrm.close();
-                        } catch (IOException i) {
-                            i.printStackTrace();
-                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-*/
+                    DataSaver dataSaver = new DataSaver(getApplicationContext());
+
+                    dataSaver.writeFile(i+"_username", username);
+                    dataSaver.writeFile(i+"_realname", real_name);
+                    dataSaver.writeFile(i+"_title", title);
+                    // Save the image too!! (write another datasaver method for that.)
 
 
                     // Store information about a single member in a HashMap.
