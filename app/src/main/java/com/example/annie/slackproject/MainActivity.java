@@ -3,6 +3,7 @@ package com.example.annie.slackproject;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,26 +48,7 @@ public class MainActivity extends ListActivity {
     // URL that accesses the Slack API with authentication token.
     String urlStr = "https://slack.com/api/users.list?token=xoxp-5048173296-5048346304-5180362684-7b3865";
 
-    String filename = "dataStorage";
-
-    String writeString = "no change";
-
     int numSavedAttributes = 3;
-
-    boolean network = true;
-
-   // private ProgressDialog pDialog;
-
-  /*   String FILENAME = "hello_file";
-    String string = "hello world!";
-
-    FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-    fos.write(string.getBytes());
-    fos.close();
-    */
-
-    // URL to get contacts JSON
-    //private static String url = "http://api.androidhive.info/contacts/";
 
     // JSON Node names
     private static final String TAG_MEMBERS = "members";
@@ -75,46 +58,42 @@ public class MainActivity extends ListActivity {
     private static final String TAG_PICTURE = "image_192";
     private static final String TAG_PROFILE = "profile";
 
-
     // contacts JSONArray
     JSONArray members = null;
 
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> memberList;
 
+    boolean network = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         memberList = new ArrayList<HashMap<String, String>>();
         TextView textView = (TextView) findViewById(R.id.myText);
+        textView.setText("Slack");
 
         ListView lv = getListView();
 
 
-
         // Check whether there is a network connection.
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             // fetch data
             new GetAPIInfo().execute();
         } else {
-            //network = false;
-            // display error
-            //textView.setText("No network connection.");
+            network = false;
             // Access saved data from last time.
-
             int numFiles = fileList().length;
             int numUsers = numFiles/numSavedAttributes;
 
             String username = "username not found";
             String title = "title not found";
             String real_name = "real name not found";
+            Bitmap image = null;
 
             for(int i=0; i < numUsers; i++) {
                 try{
@@ -123,6 +102,7 @@ public class MainActivity extends ListActivity {
                     FileInputStream fin_username = openFileInput(i+"_username");
                     FileInputStream fin_realname = openFileInput(i+"_realname");
                     FileInputStream fin_title = openFileInput(i+"_title");
+                    //FileInputStream fin_image = openFileInput(i+"image");
                     try {
                         BufferedReader bufferedReader_username = new BufferedReader(new InputStreamReader(fin_username));
                         BufferedReader bufferedReader_realname = new BufferedReader(new InputStreamReader(fin_realname));
@@ -131,7 +111,7 @@ public class MainActivity extends ListActivity {
                         StringBuilder stringBuilder_username = new StringBuilder();
                         String line_username;
                         while ((line_username = bufferedReader_username.readLine()) != null) {
-                            stringBuilder_username.append(line_username);//.append("\n");
+                            stringBuilder_username.append(line_username);
                         }
                         bufferedReader_username.close();
                         username = stringBuilder_username.toString();
@@ -139,7 +119,7 @@ public class MainActivity extends ListActivity {
                         StringBuilder stringBuilder_realname = new StringBuilder();
                         String line_realname;
                         while ((line_realname = bufferedReader_realname.readLine()) != null) {
-                            stringBuilder_realname.append(line_realname);//.append("\n");
+                            stringBuilder_realname.append(line_realname);
                         }
                         bufferedReader_realname.close();
                         real_name = stringBuilder_realname.toString();
@@ -147,10 +127,12 @@ public class MainActivity extends ListActivity {
                         StringBuilder stringBuilder_title = new StringBuilder();
                         String line_title;
                         while ((line_title = bufferedReader_title.readLine()) != null) {
-                            stringBuilder_title.append(line_title);//.append("\n");
+                            stringBuilder_title.append(line_title);
                         }
                         bufferedReader_title.close();
                         title = stringBuilder_title.toString();
+
+
                     } catch (IOException j) {
                         j.printStackTrace();
                     }
@@ -176,24 +158,6 @@ public class MainActivity extends ListActivity {
 
             }
 
-            /*try{
-                FileInputStream f_instrm = openFileInput(fileList()[0]);
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(f_instrm));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    writeString = stringBuilder.toString();
-                } catch (IOException j) {
-                    j.printStackTrace();
-                }
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }*/
 
             // Put parsed JSON into the ListView.
             ListAdapter adapter = new SimpleAdapter(
@@ -203,29 +167,8 @@ public class MainActivity extends ListActivity {
 
             // Put the name and title into the scrolling listview object.
             setListAdapter(adapter);
-
-
-
-
         }
 
-
-  /*      try{
-            FileOutputStream f_outstrm = openFileOutput(filename, Context.MODE_PRIVATE);
-            try{
-                f_outstrm.write("test: trying to write to file".getBytes());
-                f_outstrm.close();
-            } catch (IOException i) {
-                i.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Log.v("File List", fileList()[0]);*/
-
-
-        //textView.setText(writeString);
 
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -233,10 +176,14 @@ public class MainActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the relevant member as a HashMap
                 HashMap<String, String> selectedMember = memberList.get(position);
+;
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), SingleListItem.class);
                 // sending data to new activity
                 i.putExtra("profile", selectedMember);
+                i.putExtra("network", network);
+                i.putExtra("memberid", position);
+
                 // Open the new activity that shows the user's profile.
                 startActivity(i);
             }
@@ -259,7 +206,6 @@ public class MainActivity extends ListActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -269,15 +215,13 @@ public class MainActivity extends ListActivity {
 
 
     class GetAPIInfo extends AsyncTask<Void, Void, String> {
-        private Exception exception;
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        //TextView responseView = (TextView) findViewById(R.id.responseView);
 
         protected void onPreExecute() {
 
             progressBar.setVisibility(View.VISIBLE);
-            //responseView.setText("Response View Text");
+
         }
 
         protected String doInBackground(Void... urls) {
@@ -340,17 +284,18 @@ public class MainActivity extends ListActivity {
                     dataSaver.writeFile(i+"_username", username);
                     dataSaver.writeFile(i+"_realname", real_name);
                     dataSaver.writeFile(i+"_title", title);
-                    // Save the image too!! (write another datasaver method for that.)
-
+                    // Save the image too.
+                    ImageDownloader imageDownloader = new ImageDownloader(picture, i+"_image", getApplicationContext());
+                    imageDownloader.execute();
 
                     // Store information about a single member in a HashMap.
                     HashMap<String, String> member = new HashMap<String, String>();
+
                     // Add member information to the member hashmap.
                     member.put(TAG_USERNAME, username);
                     member.put(TAG_REAL_NAME, real_name);
                     member.put(TAG_TITLE, title);
                     member.put(TAG_PICTURE, picture);
-
                     // Add the member to the member list.
                     memberList.add(member);
                 }
@@ -368,10 +313,7 @@ public class MainActivity extends ListActivity {
             // Put the name and title into the scrolling listview object.
             setListAdapter(adapter);
         }
+
     }
-
-
-
-
 
 }

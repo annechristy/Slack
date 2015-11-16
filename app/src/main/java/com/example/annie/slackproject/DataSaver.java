@@ -1,6 +1,7 @@
 package com.example.annie.slackproject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +31,18 @@ public class DataSaver {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeImageFile(String filename, Bitmap image) {
+
+        try{
+            FileOutputStream fout = ctx.openFileOutput(filename, ctx.MODE_PRIVATE);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fout);
+            fout.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
     }
 
 

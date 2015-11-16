@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +27,8 @@ public class SingleListItem extends Activity{
     TextView realnameView;
     TextView titleView;
 
+    int id;
+    //Bitmap bitmap;
 
 
     @Override
@@ -32,7 +36,6 @@ public class SingleListItem extends Activity{
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.single_list_item);
 
-        System.out.println("SINGLE LIST ITEM CLASS ACCESSED");
 
         usernameView = (TextView) findViewById(R.id.username);
         realnameView = (TextView) findViewById(R.id.realname);
@@ -43,25 +46,52 @@ public class SingleListItem extends Activity{
 
 
 
+
+
         Intent i = getIntent();
-        // getting attached intent data
-       // String testString = i.getStringExtra("member_name");
+       id = (int) i.getSerializableExtra("memberid");
         HashMap<String, String> profileMap = (HashMap<String, String>) i.getSerializableExtra("profile");
+
+        boolean network = (boolean) i.getSerializableExtra("network");
+
+        //Bitmap image = fileList();
         String username = profileMap.get("name");
         String real_name = profileMap.get("real_name");
         String title = profileMap.get("title");
-        imageURL = profileMap.get("image_192"); //<--- This should be an actual image and not a string once I figure that out.
+        imageURL = profileMap.get("image_192");
 
-        new ImageDownloader().execute(imageURL);
+        if(network == false) {
+            loadImageFromStorage(id+"_image");
+        }
+        else {
 
-        // displaying selected product name
+
+            new ImageDownloaderLocal().execute(imageURL);
+        }
+
         usernameView.setText(username);
         realnameView.setText(real_name);
         titleView.setText(title);
 
     }
 
-    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+    private void loadImageFromStorage(String filename)
+    {
+
+        try {
+            File f=new File(filename+".jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public class ImageDownloaderLocal extends AsyncTask<String, Void, Bitmap> {
 
         ImageView image = (ImageView) findViewById(R.id.image);
 
@@ -69,8 +99,6 @@ public class SingleListItem extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
             // Image progress dialog
-
-
 
         }
 
@@ -92,9 +120,9 @@ public class SingleListItem extends Activity{
 
         @Override
         protected void onPostExecute(Bitmap result) {
-            // Save the image to a file here once I'm sure I'm actually getting an image.
 
             imageView.setImageBitmap(result);
         }
     }
+
 }
