@@ -31,8 +31,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -41,8 +43,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends ListActivity {
+    // URL that accesses the Slack API with authentication token.
+    String urlStr = "https://slack.com/api/users.list?token=xoxp-5048173296-5048346304-5180362684-7b3865";
 
-    private ProgressDialog pDialog;
+    String filename = "dataStorage";
+
+    String writeString = "no change";
+
+   // private ProgressDialog pDialog;
 
   /*   String FILENAME = "hello_file";
     String string = "hello world!";
@@ -70,16 +78,6 @@ public class MainActivity extends ListActivity {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> memberList;
 
-   /* @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        contactList = new ArrayList<HashMap<String, String>>();
-
-        ListView lv = getListView();
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +91,7 @@ public class MainActivity extends ListActivity {
         ListView lv = getListView();
 
 
+
         // Check whether there is a network connection.
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -102,48 +101,58 @@ public class MainActivity extends ListActivity {
             new GetAPIInfo().execute();
         } else {
             // display error
-            textView.setText("No network connection.");
+            //textView.setText("No network connection.");
             // Access saved data from last time.
+
+            try{
+                FileInputStream f_instrm = openFileInput(fileList()[0]);
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(f_instrm));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    writeString = stringBuilder.toString();
+                } catch (IOException j) {
+                    j.printStackTrace();
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
 
-        //new GetAPIInfo().execute();
-
-        // listening to single list item on click
-       /* lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // selected item
-                String product = ((TextView) view).getText().toString();
-
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getApplicationContext(), SingleListItem.class);
-                // sending data to new activity
-                i.putExtra("product", product);
-                startActivity(i);
-
+        try{
+            FileOutputStream f_outstrm = openFileOutput(filename, Context.MODE_PRIVATE);
+            try{
+                f_outstrm.write("test: trying to write to file".getBytes());
+                f_outstrm.close();
+            } catch (IOException i) {
+                i.printStackTrace();
             }
-        });*/
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Log.v("File List", fileList()[0]);
+
+
+        textView.setText(writeString);
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // selected item
-                //String product = ((TextView) view).getText().toString();
-
+                // Get the relevant member as a HashMap
                 HashMap<String, String> selectedMember = memberList.get(position);
-
-                String member_name = selectedMember.get(TAG_USERNAME);
-
-
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), SingleListItem.class);
                 // sending data to new activity
-
-                //i.putExtra("member_name", member_name);
                 i.putExtra("profile", selectedMember);
-
+                // Open the new activity that shows the user's profile.
                 startActivity(i);
             }
         });
@@ -188,15 +197,13 @@ public class MainActivity extends ListActivity {
 
         protected String doInBackground(Void... urls) {
 
-            //String email = findViewById(R.id.emailText).getText().toString();
-            // Do some validation here
             String jsonStr = null;
 
             try {
-                URL url = new URL("https://slack.com/api/users.list?token=xoxp-5048173296-5048346304-5180362684-7b3865");
-                //URL url = new URL("http://api.androidhive.info/contacts/");
+                URL url = new URL(urlStr);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
+                    // Read in the JSON information
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder stringBuilder = new StringBuilder();
                     String line;
@@ -228,32 +235,45 @@ public class MainActivity extends ListActivity {
             if(response != null) try {
                 JSONObject jsonObject = new JSONObject(response);
 
-                // Getting JSON Array node
+                // Get the JSON Array node.
                 members = jsonObject.getJSONArray(TAG_MEMBERS);
 
-                // looping through All Contacts
+                // Loop through all the users in the user list.
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject c = members.getJSONObject(i);
 
                     String username = c.getString(TAG_USERNAME);
                     String real_name = c.getString(TAG_REAL_NAME);
-
-                    // Phone node is JSON Object
+                    // There is a nested JSON object, profile, that contains info we want.
                     JSONObject profile = c.getJSONObject(TAG_PROFILE);
                     String title = profile.getString(TAG_TITLE);
                     String picture = profile.getString(TAG_PICTURE);
 
-                    // tmp hashmap for single contact
-                    HashMap<String, String> member = new HashMap<String, String>();
 
-                    // adding each child node to HashMap key => value
+                  /*  // Save String information to files.
+                    try{
+                        FileOutputStream f_outstrm = openFileOutput(filename, Context.MODE_PRIVATE);
+                        try{
+                            f_outstrm.write("test: trying to write to file".getBytes());
+                            f_outstrm.close();
+                        } catch (IOException i) {
+                            i.printStackTrace();
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+*/
+
+
+                    // Store information about a single member in a HashMap.
+                    HashMap<String, String> member = new HashMap<String, String>();
+                    // Add member information to the member hashmap.
                     member.put(TAG_USERNAME, username);
                     member.put(TAG_REAL_NAME, real_name);
                     member.put(TAG_TITLE, title);
                     member.put(TAG_PICTURE, picture);
 
-
-                    // adding contact to member list
+                    // Add the member to the member list.
                     memberList.add(member);
                 }
 
@@ -261,31 +281,14 @@ public class MainActivity extends ListActivity {
                 e.printStackTrace();
             }
 
-            if(memberList == null) {
-                System.out.println("B: CONTACT LIST IS NULL!!");
-                return;
-            }
-            else {
-                System.out.println("size of memberlist: " + memberList.size());
-                System.out.println("memberList.get(0): " + memberList.get(0));
-                System.out.println("memberList.get(0).get(\"TAG_USERNAME\")" + memberList.get(0).get("TAG_USERNAME"));
-            }
-
-            System.out.println("TAG_PICTURE: " + TAG_PICTURE);
-
-            // Put parsed JSON into the ListView
+            // Put parsed JSON into the ListView.
             ListAdapter adapter = new SimpleAdapter(
                     MainActivity.this, memberList,
-                    /*R.layout.list_item, new String[] { TAG_REAL_NAME, TAG_USERNAME,
-                                    TAG_TITLE, TAG_PICTURE}, new int[] { R.id.name,
-                                    R.id.email, R.id.mobile});*/
-                    R.layout.list_item, new String[] {TAG_REAL_NAME, TAG_TITLE}, new int[] { R.id.name, R.id.subTitle });
+                    R.layout.list_item, new String[] {TAG_REAL_NAME, TAG_TITLE},
+                    new int[] { R.id.name, R.id.subTitle });
 
+            // Put the name and title into the scrolling listview object.
             setListAdapter(adapter);
-
-
-            //responseView.setText(response);
-
         }
     }
 

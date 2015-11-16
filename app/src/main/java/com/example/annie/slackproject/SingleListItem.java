@@ -1,6 +1,8 @@
 package com.example.annie.slackproject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
@@ -19,6 +24,8 @@ public class SingleListItem extends Activity{
     TextView usernameView;
     TextView realnameView;
     TextView titleView;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,9 @@ public class SingleListItem extends Activity{
         realnameView = (TextView) findViewById(R.id.realname);
         titleView = (TextView) findViewById(R.id.title);
         imageView = (ImageView) findViewById(R.id.image);
+
+
+
 
 
         Intent i = getIntent();
@@ -58,7 +68,10 @@ public class SingleListItem extends Activity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Could create a progress dialog here if I chose to.
+            // Image progress dialog
+
+
+
         }
 
         @Override
